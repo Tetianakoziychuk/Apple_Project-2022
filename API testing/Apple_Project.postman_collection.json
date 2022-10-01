@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "84a55847-71f2-4bb7-910a-1b55b7f1ae4d",
+		"name": "Apple_Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23272761"
+	},
+	"item": [
+		{
+			"name": "Apple_project",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.apple.com/shop/experience-meta",
+					"protocol": "https",
+					"host": [
+						"www",
+						"apple",
+						"com"
+					],
+					"path": [
+						"shop",
+						"experience-meta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Apple_Project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"requestId\": \"f0c87bb7f6b846268fde4c411cff550e\",\r\n\t\"context\": {\r\n\t\t\"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36\",\r\n\t\t\"timeOffsetInMinutes\": -240,\r\n\t\t\"channel\": \"web\",\r\n\t\t\"screen\": {\r\n\t\t\t\"width\": 1920,\r\n\t\t\t\"height\": 1080,\r\n\t\t\t\"orientation\": \"landscape\",\r\n\t\t\t\"colorDepth\": 24,\r\n\t\t\t\"pixelRatio\": 1\r\n\t\t},\r\n\t\t\"window\": {\r\n\t\t\t\"width\": 1084,\r\n\t\t\t\"height\": 872\r\n\t\t},\r\n\t\t\"browser\": {\r\n\t\t\t\"host\": \"www.apple.com\",\r\n\t\t\t\"webGLRenderer\": \"ANGLE (Intel, Intel(R) UHD Graphics 630 Direct3D11 vs_5_0 ps_5_0, D3D11)\"\r\n\t\t},\r\n\t\t\"address\": {\r\n\t\t\t\"url\": \"https://www.apple.com/\",\r\n\t\t\t\"referringUrl\": \"https://www.apple.com/shop/buy-mac\"\r\n\t\t}\r\n\t},\r\n\t\"id\": {\r\n\t\t\"tntId\": \"3e2fa045ab50410bad15ebcbcf35dce0.34_0\"\r\n\t},\r\n\t\"experienceCloud\": {\r\n\t\t\"analytics\": {\r\n\t\t\t\"logging\": \"server_side\"\r\n\t\t}\r\n\t},\r\n\t\"execute\": {\r\n\t\t\"pageLoad\": {\r\n\t\t\t\"parameters\": {\r\n\t\t\t\t\"as_tex\": \"\"\r\n\t\t\t}\r\n\t\t}\r\n\t},\r\n\t\"prefetch\": {\r\n\t\t\"views\": [{\r\n\t\t\t\"parameters\": {\r\n\t\t\t\t\"as_tex\": \"\"\r\n\t\t\t}\r\n\t\t}]\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://securemvt.apple.com/rest/v1/delivery?client=apple&sessionId=3e2fa045ab50410bad15ebcbcf35dce0&version=2.3.2",
+					"protocol": "https",
+					"host": [
+						"securemvt",
+						"apple",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"delivery"
+					],
+					"query": [
+						{
+							"key": "client",
+							"value": "apple"
+						},
+						{
+							"key": "sessionId",
+							"value": "3e2fa045ab50410bad15ebcbcf35dce0"
+						},
+						{
+							"key": "version",
+							"value": "2.3.2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
