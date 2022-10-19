@@ -1,0 +1,205 @@
+import time
+import random
+import driver
+import requests
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, NoSuchWindowException
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver import Keys, ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+from faker import Faker
+from selenium.webdriver import ActionChains
+actions = ActionChains(driver)
+faker_class = Faker()
+F = Faker()
+F.Number = Faker(["App"])
+
+
+# Email for User
+user_email = "tetianakoziychuk@gmail.com"
+# Invalid Email for user
+invalid_email_name = "232342@gmail.com"
+# Password for User
+user_pass = "111111"
+# Verify Log In
+ver_log_in = "//a[@id='ac-gn-firstfocus']"
+# Url for Website
+QASV_url = "https://www.apple.com/"
+
+
+# Main logo
+main_logo = '//img[@alt="iot_sq.png"]'
+
+# final login button for Log in w
+final_Button_log_in = "//a[@id='signIn']"
+
+# By ID
+log_in_with_email = '//a[id="page"]'
+
+
+# input email For Log In: Log in and Sign up have different locators
+email_log_in = 'input_input_emailInput_SM_ROOT_COMP16'
+# input password For log in:  Log in and Sign up have different locators
+password_log_in = 'input_input_passwordInput_SM_ROOT_COMP16'
+
+# Button for Product 1
+product_1_button = '//*[text()="m1-chip"]'
+
+
+# Delay
+def delay1_3():
+    time.sleep(random.randint(1, 3))
+
+
+# Wait time
+wait = WebDriverWait(driver, 5)
+
+
+# Check API
+def check_API(driver):
+    code = requests.get(driver.current_url).status_code
+    if code == 200:
+        print("Url has ", requests.get(driver.current_url).status_code, " as Status Code")
+    else:
+        print("API response code is not 200")
+
+# asser dr title
+def assert_title(driver, title):
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.title_is(title))
+    assert title in driver.title
+    print(f"Page has, {driver.title} as Page title")
+    # Scr of page if pas has different title
+    driver.get_screenshot_as_file(f"Page has different {title}.png")
+    if not title in driver.title:
+        raise Exception(f"Page {title} has wrong Title!")
+
+
+# Function for Log In
+def log_In(driver):
+    wait = WebDriverWait(driver, 10)
+    # Button Log in on the Main Page
+    try:  # Button visible and clickable
+        wait.until(EC.visibility_of_element_located((By.XPATH, log_in)))
+        wait.until(EC.element_to_be_clickable((By.XPATH, log_in)))
+        # Click on Button
+        driver.find_element(By.XPATH, log_in).click()
+        print("Log In Button is OK")
+    except TimeoutException:
+        print("Log In Button is NOT OK")
+    time.sleep(2)
+    try: # Inner Button Log in Is Visible and clickable
+        wait.until(EC.visibility_of_element_located((By.XPATH, inner_log_in)))
+        wait.until(EC.element_to_be_clickable((By.XPATH, inner_log_in)))
+        # click on the inner Button
+        driver.find_element(By.XPATH, inner_log_in).click()
+        print("Inner Button Log In is OK")
+    except TimeoutException:
+        print("Inner Button Log In is NOT OK")
+    time.sleep(2)
+    try: # Verify that Button "Log in With Email" Is visible and clickable
+        wait.until(EC.visibility_of_element_located((By.XPATH, log_in_with_email)))
+        wait.until(EC.element_to_be_clickable((By.XPATH, log_in_with_email)))
+        # Click on it
+        driver.find_element(By.XPATH, log_in_with_email).click()
+        print("Button 'Log in with Email' is OK")
+    except TimeoutException:
+        print("Button 'Log in with Email' is NOT OK")
+        
+    # Verify that Placeholder for Email is visible and clickable
+    wait.until(EC.visibility_of_element_located((By.ID, email_log_in)))
+    wait.until(EC.element_to_be_clickable((By.ID, email_log_in)))
+    # Clear Field
+    driver.find_element(By.ID, email_log_in).clear()
+    time.sleep(1)
+    # Enter Valid Email
+    driver.find_element(By.ID, email_log_in).send_keys(user_email)
+    time.sleep(1)
+    # Verify that Placeholder for Password is visible and clickable
+    wait.until(EC.visibility_of_element_located((By.ID, password_log_in)))
+    wait.until(EC.element_to_be_clickable((By.ID, password_log_in)))
+    # Clear Field
+    driver.find_element(By.ID, password_log_in).clear()
+    time.sleep(1)
+    # Enter Valid Email
+    driver.find_element(By.ID, password_log_in).send_keys(user_pass)
+    time.sleep(2)
+    # Verify Final Log In Visible and clickable
+    wait.until(EC.visibility_of_element_located((By.ID, final_Button_log_in)))
+    wait.until(EC.element_to_be_clickable((By.ID, final_Button_log_in)))
+    # Click on The button "Log In"
+    driver.find_element(By.ID, final_Button_log_in).click()
+
+
+
+# verify Checkout
+def checkout_product1(driver):
+    try:
+        wait = WebDriverWait(driver, 10)
+        # Verify that El Photo is Visible
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@data-hook="product-thumbnail-media"]')))
+        # Verify that Logo is visible
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@alt="iot_sq.png"]')))
+        # verify button "Checkout"
+        wait.until(EC.visibility_of_element_located((By.XPATH, "//span[text()='Checkout']")))
+        # Checkout button is clickable
+        wait.until(EC.element_to_be_clickable((By.XPATH, "//span[text()='Checkout']")))
+        # # Click on Checkout that verify or is placed !
+        wait.until(EC.element_to_be_clickable((By.XPATH, "//span[text()='Checkout']"))).click()
+        print("All Elements is present and 'Checkout' button is OK")
+    except NoSuchElementException:
+        print("One of El is missed and Checkout is impossible!")
+
+
+
+# Verify That FN, LN, and Email is present and clickable
+def regist_field_verification(driver):
+    wait = WebDriverWait(driver, 7)
+    # Check "First Name" if is Visible and Clickable
+    wait.until(EC.visibility_of_element_located((By.ID, 'firstName')))
+    wait.until(EC.element_to_be_clickable((By.ID, 'firstName')))
+    driver.find_element(By.ID, 'firstName').clear()
+    # Check "Last Name" if is Visible and Clickable
+    wait.until(EC.visibility_of_element_located((By.ID, 'lastName')))
+    wait.until(EC.element_to_be_clickable((By.ID, 'lastName')))
+    driver.find_element(By.ID, 'lastName').clear()
+    # Check Email field
+    wait.until(EC.visibility_of_element_located((By.ID, 'email')))
+    wait.until(EC.element_to_be_clickable((By.ID, 'email')))
+    driver.find_element(By.ID, 'email').clear()
+    # Check if Button "Submit" is visible and clickable
+    wait.until(EC.visibility_of_element_located((By.XPATH, submit_button)))
+    wait.until(EC.element_to_be_clickable((By.XPATH, submit_button)))
+
+# Create Faker Date for event_3
+def create_faker_data_for_event_3(driver):
+    driver.find_element(By.ID, 'firstName').send_keys(F.first_name())
+    driver.find_element(By.ID, "lastName").send_keys(F.last_name())
+    driver.find_element(By.ID, 'email').send_keys(F.email())
+    time.sleep(2)
+    driver.find_element(By.XPATH, submit_button).click()
+
+# function for Sign up
+def sign_up_to_account(driver):
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.visibility_of_element_located((By.XPATH, log_in)))
+    wait.until(EC.element_to_be_clickable((By.XPATH, log_in)))
+    driver.find_element(By.XPATH, log_in).click()
+    assert 'Sign Up' in driver.page_source
+
+# Function for 'Product 1' through the Shop button
+def product_1_shop(driver):
+    wait = WebDriverWait(driver, 10)
+
+
+GoogleIcon = driver.find_element(By.ID, "//a[@id='ac-gn-firstfocus']")
+
+GoogleIcon = driver.find_element(By.XPATH, "//a[@class='ac-gn-link ac-gn-link-store']").click()
+GoogleIcon = driver.find_element(By.XPATH, "//a[class='rf-productnav-card-image']").click()
+GoogleIcon = driver.find_element(By.XPATH, "//*[@href='shop/buy-mac/macbook-air/m1-chip']").click()
+GoogleIcon = driver.find_element(By.XPATH, "//a[@class='rs-bundleselection-header']").click()
+GoogleIcon = driver.find_element(By.XPATH, "//a[@class=class='rs-bundleselection-tabnav-pricestring']").click()
+# driver.find_element(By.ID, "hplogo")
+# GoogleIcon = driver.find_element(By.XPATH, "//img[@id='hplogo']")
+GoogleIcon = driver.find_element(By.ID, "//a[@id='ac-gn-firstfocus']")
