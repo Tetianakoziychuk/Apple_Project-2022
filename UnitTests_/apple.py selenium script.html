@@ -1,0 +1,73 @@
+
+<!-- saved from url=(0066)file:///C:/Users/Tetia/SeleniumWebdriverPython_test1/apple.py.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>apple.py</title>
+
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #cc7832;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table cellspacing="0" cellpadding="5" cols="1" width="100%" bgcolor="#606060">
+<tbody><tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+apple.py</font>
+</center></td></tr></tbody></table>
+<pre><span class="s1">import </span><span class="s0">unittest</span>
+<span class="s1">from </span><span class="s0">selenium </span><span class="s1">import </span><span class="s0">webdriver</span>
+<span class="s1">from </span><span class="s0">selenium.common.exceptions </span><span class="s1">import </span><span class="s0">TimeoutException</span>
+<span class="s1">from </span><span class="s0">selenium.webdriver.common.by </span><span class="s1">import </span><span class="s0">By</span>
+<span class="s1">import </span><span class="s0">time</span>
+<span class="s1">from </span><span class="s0">selenium.webdriver.common.keys </span><span class="s1">import </span><span class="s0">Keys</span>
+
+<span class="s1">from </span><span class="s0">selenium.webdriver.support.wait </span><span class="s1">import </span><span class="s0">WebDriverWait</span>
+<span class="s1">from </span><span class="s0">selenium.webdriver.support </span><span class="s1">import </span><span class="s0">expected_conditions </span><span class="s1">as </span><span class="s0">EC</span>
+
+
+<span class="s1">class </span><span class="s0">ChromeSearchTest(unittest.TestCase):</span>
+
+
+    <span class="s1">def </span><span class="s0">setUp(self):</span>
+        <span class="s0">self.driver = webdriver.Chrome()</span>
+        <span class="s0">self.driver.maximize_window()</span>
+
+    <span class="s2"># Methods in UnitTest should start from "test" keyword</span>
+    <span class="s1">def </span><span class="s0">test_search_1(self):</span>
+        <span class="s0">driver = self.driver</span>
+        <span class="s0">driver.get(</span><span class="s3">"http://www.apple.com"</span><span class="s0">)</span>
+
+        <span class="s2"># Check that an element is present on the DOM of a page and visible.</span>
+        <span class="s1">try</span><span class="s0">:</span>
+            <span class="s0">WebDriverWait(driver</span><span class="s1">, </span><span class="s4">10</span><span class="s0">) \</span>
+                <span class="s0">.until(EC.visibility_of_element_located((By.NAME</span><span class="s1">, </span><span class="s3">"q"</span><span class="s0">)))</span>
+            <span class="s0">print(</span><span class="s3">"First Chrome Page is ready!"</span><span class="s0">)</span>
+            <span class="s0">driver.get_screenshot_as_file(</span><span class="s3">'GooglePage.png'</span><span class="s0">)</span>
+        <span class="s1">except </span><span class="s0">TimeoutException:</span>
+            <span class="s0">print(</span><span class="s3">"Loading took too much time!"</span><span class="s0">)</span>
+            <span class="s2"># driver.get_screenshot_as_file('google_page_loading_error.png')</span>
+            <span class="s2"># driver.save_screenshot('UnitTests/Screenshots/google_page_loading_error.png')</span>
+<span class="s0">driver = webdriver.Chrome()</span>
+<span class="s0">driver.get(</span><span class="s3">"https://www.apple.com"</span><span class="s0">)</span>
+
+<span class="s0">driver.find_element(By.XPATH</span><span class="s1">, </span><span class="s3">"//a[@class='ac-gn-link ac-gn-link-store'][contains(.,'Store')]"</span><span class="s0">).click()</span>
+<span class="s0">driver.find_element(By.XPATH</span><span class="s1">, </span><span class="s3">"//div[contains(@class,'rf-productnav-card-image')]"</span><span class="s0">).click()</span>
+<span class="s0">driver.find_element(By.XPATH</span><span class="s1">, </span><span class="s3">"//img[contains(@width,'600')]"</span><span class="s0">).click()</span>
+
+
+<span class="s2"># Anything declared in tearDown will be executed for all test cases</span>
+<span class="s2"># Closing browser. You need to use "tearDown" method only one time for every Class</span>
+<span class="s1">def </span><span class="s0">tearDown(self):</span>
+    <span class="s0">self.driver.quit()</span>
+
+
+<span class="s1">if </span><span class="s0">__name__ == </span><span class="s3">"__main__"</span><span class="s0">:</span>
+    <span class="s0">unittest.main()</span>
+
+
+</pre>
+
+</body></html>
